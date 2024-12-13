@@ -253,6 +253,9 @@ jobs:
       - build-container-image
       - build-test-suite-matrix
     strategy:
+      # Continue running the rest of the test suite so we get feedback even if
+      # there are failures in certain tests, such as when running npm-audit
+      fail-fast: false
       matrix:
         test-case: ${{ fromJson(needs.build-test-suite-matrix.outputs.matrix) }}
         images:
