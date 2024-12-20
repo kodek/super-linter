@@ -18,6 +18,10 @@ control "super-linter-environment-variables" do
     its("content") { should match(/^(standard|slim)$/) }
   end
 
+  describe os_env("HOME") do
+    its("content") { should eq "/github/home" }
+  end
+
   describe os_env("RENOVATE_X_IGNORE_RE2") do
     its("content") { should eq "true" }
   end
@@ -181,6 +185,7 @@ control "super-linter-installed-commands" do
     { linter_name: "lua", version_option: "-v"},
     { linter_name: "markdownlint"},
     { linter_name: "mypy"},
+    { linter_name: "nbqa"},
     { linter_name: "npm-groovy-lint"},
     { linter_name: "perl"},
     { linter_name: "php"},
@@ -411,6 +416,7 @@ control "super-linter-installed-pypi-packages" do
     "flake8",
     "isort",
     "mypy",
+    "nbqa",
     "pyink",
     "pylint",
     "ruff",
@@ -437,6 +443,7 @@ control "super-linter-validate-directories" do
   desc "Check that directories that Super-Linter needs are installed."
 
   dirs = [
+    "/github/home",
     "/node_modules",
     "/action/lib",
     "/action/lib/functions",
@@ -512,6 +519,7 @@ control "super-linter-validate-files" do
     "/action/lib/.automation/.luacheckrc",
     "/action/lib/.automation/.markdown-lint.yml",
     "/action/lib/.automation/.mypy.ini",
+    "/action/lib/.automation/.jupyter-nbqa.toml",
     "/action/lib/.automation/.openapirc.yml",
     "/action/lib/.automation/.perlcriticrc",
     "/action/lib/.automation/.powershell-psscriptanalyzer.psd1",
